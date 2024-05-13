@@ -49,10 +49,12 @@ export const getJqlResponse = async (
 
   issuesResponse = (await cache.get(jql)) as Issue[];
 
-  if (issuesResponse) return issuesResponse as Issue[];
+  if (issuesResponse) {
+    return issuesResponse as Issue[];
+  }
 
   try {
-    issuesResponse = await searchJira(config, jql, searchOptions);
+    issuesResponse = (await searchJira(config, jql, searchOptions)).issues;
     cache.set(jql, issuesResponse);
   } catch (err: any) {
     if (err.message !== 200) {
