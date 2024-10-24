@@ -24,7 +24,9 @@ export const getProjectResponse = async (
 
   projectResponse = (await cache.get(projectKey)) as Project;
 
-  if (projectResponse) return projectResponse as Project;
+  if (projectResponse) {
+    return projectResponse as Project;
+  }
 
   try {
     projectResponse = await getProjectInfo(projectKey, config);
